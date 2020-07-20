@@ -1,0 +1,12 @@
+<div fxLayout="row">
+  <div fxFlex="20">
+    <h1>New Files</h1>
+    <ul>
+      <li *ngFor="let file of files">{{file}}</li>
+      <li>test</li>
+    </ul>
+  </div>
+  <div fxFlex>
+    <app-detail [file]="chosenFile"></app-detail>
+  </div>
+</div>

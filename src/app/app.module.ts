@@ -18,6 +18,14 @@ import { HomeModule } from './home/home.module';
 import { DetailModule } from './detail/detail.module';
 
 import { AppComponent } from './app.component';
+import { SearchComponent } from './search/search.component';
+import { ResultComponent } from './result/result.component';
+import { EditComponent } from './edit/edit.component';
+import { NewNodesComponent } from './newNodes/new-nodes.component';
+import { ListComponent } from './newNodes/list/list.component';
+import { DetailComponent } from './newNodes/detail/detail.component';
+import { TagsComponent } from './newNodes/tags/tags.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -25,8 +33,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SearchComponent, ResultComponent, EditComponent, NewNodesComponent, ListComponent, DetailComponent, TagsComponent],
   imports: [
+    FlexLayoutModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,

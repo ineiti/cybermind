@@ -1,0 +1,11 @@
+<div fxLayout="row">
+  <div fxFlex="75">
+    <h1>Details of {{file}}</h1>
+    <canvas id="pageRender" width="143" height="200" style="border:1px solid #000000;">
+    </canvas>
+    <p>{{pdfText[1]}}</p>
+  </div>
+  <div fxFlex>
+    <app-tags [file]="file" [pdfText]="pdfText[1]"></app-tags>
+  </div>
+</div>
