@@ -1,18 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {getDocument, GlobalWorkerOptions, PDFDocumentProxy, PDFPageProxy} from "pdfjs-dist";
-// import {getDocument, GlobalWorkerOptions, PDFDocumentProxy, PDFPageProxy} from "pdfjs-dist";
-import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
-GlobalWorkerOptions.workerSrc = pdfjsWorker;
+import {GlobalWorkerOptions} from "pdfjs-dist";
+import pdfjsWorker from "pdfjs-dist/pdf.worker.entry";
+import {NodePDF, NodePDFPage} from "../../lib/pdf";
+import {Node} from "../../lib/element";
+import * as path from "path";
 
-// From https://github.com/mozilla/pdf.js/issues/10478
-// import pdfjs from "pdfjs-dist/build/pdf";
-// import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
-//
-// console.log(pdfjs);
-// console.log(pdfjs.GlobalWorkerOptions);
-//
-// pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 @Component({
   selector: 'app-detail',
@@ -21,51 +15,53 @@ GlobalWorkerOptions.workerSrc = pdfjsWorker;
 })
 export class DetailComponent implements OnInit {
   private _file: string;
-  page: PDFPageProxy;
-  pdf: PDFDocumentProxy;
-  // page: pdfjs.PDFPageProxy;
-  // pdf: pdfjs.PDFDocumentProxy;
+  pdf: NodePDF;
+  pages: NodePDFPage[] = [];
   pdfText: string[] = [];
+  scale = 0.25;
+  active: Node;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
-  async updateFile(): Promise<void>{
+  async updateFile(): Promise<void> {
     if (this.file) {
-      const doc = getDocument("file://" + this.file);
-      // const doc = pdfjs.getDocument("file://" + this.file) as any;
-      this.pdf = await doc.promise;
-      for (let p = 1; p <= 2; p++) {
-        console.log(`getting page: ${p}`);
-        this.page = await this.pdf.getPage(p);
-        const pageText = await this.page.getTextContent();
-        this.pdfText[p] = pageText.items.map((i) => i.str).join(" ");
-      }
-      const scale = 0.25;
-      const page = await this.pdf.getPage(1);
-      const viewport = page.getViewport({ scale: scale, });
-
-      const canvas = document.getElementById('pageRender') as HTMLCanvasElement;
-      const context = canvas.getContext('2d');
-      canvas.height = 200;
-      canvas.width = 143;
-
-      const renderContext = {
-        canvasContext: context,
-        viewport: viewport
-      };
-      page.render(renderContext);
+      this.pdf = await NodePDF.fetch(path.dirname(this.file), path.basename(this.file));
+      await this.pdf.read(async (np) => {
+        if (np.pNumber() === 1){
+          this.active = np;
+        }
+        this.pages.push(np);
+        this.pdfText.push(np.content().join(" "));
+        await new Promise(resolve => setTimeout(() => {
+          resolve()
+        }, 1));
+        this.drawPage(np.pNumber(), np.imageURL());
+      });
     }
   }
 
-  get file(): string{
+  drawPage(pNumber: number, imgURL: string): void {
+    const canvas = document.getElementById(`pageRender${pNumber}`) as HTMLCanvasElement;
+    canvas.height = 200;
+    canvas.width = 143;
+
+    const img = new window.Image();
+    img.src = imgURL;
+    img.onload = () => {
+      canvas.getContext('2d').drawImage(img, 0, 0);
+    }
+  }
+
+  get file(): string {
     return this._file;
   }
 
   @Input()
-  set file(f: string){
+  set file(f: string) {
     this._file = f;
     this.updateFile();
   }

@@ -4,11 +4,11 @@
     "outDir": "../out-tsc/app",
     "module": "es2015",
     "baseUrl": "./",
+    "types": [],
     "paths": {
-      "pdfjs-dist": ["/Users/home/Programming/pdf.js/build/dist"],
-      "pdfjs-dist/*": ["/Users/home/Programming/pdf.js/build/dist/*"]
-    },
-    "types": []
+      "pdfjs-dist": ["../../pdf.js/build/dist"],
+      "pdfjs-dist/*": ["../../pdf.js/build/dist/build/*"]
+    }
   },
   "include": [
     "**/*.ts"

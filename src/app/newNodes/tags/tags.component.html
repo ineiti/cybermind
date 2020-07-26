@@ -1,2 +1,5 @@
 <h1>Tags</h1>
-<p>Tagging file {{file}} with possible text-tags {{pdfText}}</p>
+<p>Tagging node {{node && node.data}}</p>
+<ul>
+  <li *ngFor="let text of texts">{{text}}</li>
+</ul>
