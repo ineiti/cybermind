@@ -1,9 +1,9 @@
 import {getDocument} from "pdfjs-dist"
 import {PDFPageProxy} from "pdfjs-dist/display/api";
-import {Node, StorageNodes} from "./element";
+import {DNode, StorageNodes} from "./element";
 import {NodeFile} from "./file";
 
-export class NodePDF extends Node {
+export class NodePDF extends DNode {
   static type = "NodePDF";
 
   static async fetch(fpath: string, file: string): Promise<NodePDF> {
@@ -33,7 +33,7 @@ export class NodePDF extends Node {
   }
 }
 
-export class NodePDFPage extends Node {
+export class NodePDFPage extends DNode {
   static type = "NodePDFPage";
 
   static async fetch(page: PDFPageProxy): Promise<NodePDFPage> {
@@ -64,7 +64,7 @@ export class NodePDFPage extends Node {
   }
 }
 
-export class NodePDFPageImage extends Node {
+export class NodePDFPageImage extends DNode {
   static type = "NodePDFPageImage";
 
   static async fetch(page: PDFPageProxy, scale = 0.25): Promise<NodePDFPageImage> {
@@ -87,7 +87,7 @@ export class NodePDFPageImage extends Node {
   }
 }
 
-export class NodePDFPageContent extends Node {
+export class NodePDFPageContent extends DNode {
   static type = "NodePDFPageContent";
 
   static fetch(content: string): NodePDFPageContent {

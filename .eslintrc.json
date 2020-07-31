@@ -20,7 +20,8 @@
         "project": [
           "./src/tsconfig.app.json",
           "./src/tsconfig.spec.json",
-          "./e2e/tsconfig.e2e.json"
+          "./e2e/tsconfig.e2e.json",
+          "./spec/tsconfig.spec.json"
         ],
         "sourceType": "module",
         "ecmaFeatures": {

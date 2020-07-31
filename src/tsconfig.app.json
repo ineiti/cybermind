@@ -5,6 +5,8 @@
     "module": "es2015",
     "baseUrl": "./",
     "types": [],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "paths": {
       "pdfjs-dist": ["../../pdf.js/build/dist"],
       "pdfjs-dist/*": ["../../pdf.js/build/dist/build/*"]

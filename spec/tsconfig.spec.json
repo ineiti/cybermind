@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/e2e",
+    "module": "commonjs",
+    "baseUrl": "../",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": [
+      "mocha"
+    ]
+  },
+  "include": [
+    "spec/**/*.ts"
+  ]
+}

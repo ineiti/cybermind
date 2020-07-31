@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Node} from '../../lib/element';
-import {NodePDFPageContent} from "../../lib/pdf";
+import {DNode} from '../../../lib/element';
+import {NodePDFPageContent} from "../../../lib/pdf";
 
 @Component({
   selector: 'app-tags',
@@ -8,7 +8,7 @@ import {NodePDFPageContent} from "../../lib/pdf";
   styleUrls: ['./tags.component.scss']
 })
 export class TagsComponent implements OnInit {
-  private _node: Node | undefined;
+  private _node: DNode | undefined;
   public texts: string[] = [];
 
   constructor() {
@@ -18,7 +18,7 @@ export class TagsComponent implements OnInit {
   }
 
   @Input()
-  set node(n: Node) {
+  set node(n: DNode) {
     if (n === undefined){
       return;
     }
@@ -27,7 +27,7 @@ export class TagsComponent implements OnInit {
     this.texts = n.getHas(NodePDFPageContent.type).map((pcn) => pcn.data);
   }
 
-  get node(): Node | undefined {
+  get node(): DNode | undefined {
     return this._node;
   }
 }

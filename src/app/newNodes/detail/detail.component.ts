@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {GlobalWorkerOptions} from "pdfjs-dist";
 import pdfjsWorker from "pdfjs-dist/pdf.worker.entry";
-import {NodePDF, NodePDFPage} from "../../lib/pdf";
-import {Node} from "../../lib/element";
+import {NodePDF, NodePDFPage} from "../../../lib/pdf";
+import {DNode} from "../../../lib/element";
 import * as path from "path";
 
 GlobalWorkerOptions.workerSrc = pdfjsWorker;
@@ -19,7 +19,7 @@ export class DetailComponent implements OnInit {
   pages: NodePDFPage[] = [];
   pdfText: string[] = [];
   scale = 0.25;
-  active: Node;
+  active: DNode;
 
   constructor() {
   }

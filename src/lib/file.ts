@@ -1,7 +1,7 @@
 import * as path from "path";
-import {Node, StorageNodes} from "./element";
+import {DNode, StorageNodes} from "./element";
 
-export class NodeFilePath extends Node {
+export class NodeFilePath extends DNode {
   static type = "NodeFilePath";
 
   static fetch(path: string): NodeFilePath {
@@ -13,7 +13,7 @@ export class NodeFilePath extends Node {
   }
 }
 
-export class NodeFile extends Node {
+export class NodeFile extends DNode {
   static type = "NodeFile";
 
   static fetch(path: string, file: string): Promise<NodeFile> {
